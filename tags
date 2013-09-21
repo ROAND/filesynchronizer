@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+app	synchronizerd.py	/^    app = QtGui.QApplication(sys.argv)$/;"	v	class:MainUi
+CheckProgress	synchronizerd.py	/^class CheckProgress(Thread):$/;"	c
+dir_from	synchronizerd.py	/^        dir_from = entrada1$/;"	v
+dir_from	synchronizerd.py	/^    dir_from = entrada1$/;"	v
+dir_from	synchronizerd.py	/^    dir_from = entrada2$/;"	v
+dir_from	synchronizerd.py	/^dir_from = None$/;"	v
+dir_to	synchronizerd.py	/^        dir_to = entrada2$/;"	v
+dir_to	synchronizerd.py	/^dir_to = None$/;"	v
+entrada1	synchronizerd.py	/^    entrada1 = sys.argv[1]$/;"	v
+entrada2	synchronizerd.py	/^    entrada2 = sys.argv[2]$/;"	v
+fromOpen	synchronizerd.py	/^    def fromOpen(self):$/;"	m	class:MainUi
+getDirectory	synchronizerd.py	/^    def getDirectory(self):$/;"	m	class:MainUi
+getProgress	synchronizerd.py	/^    def getProgress(self):$/;"	m	class:CheckProgress
+main	synchronizerd.py	/^    main = MainUi()$/;"	v	class:MainUi
+MainUi	synchronizerd.py	/^class MainUi(QtGui.QMainWindow):$/;"	c
+retranslateUi	views/synchronizerd_ui.py	/^    def retranslateUi(self, SyncMain):$/;"	m	class:Ui_SyncMain
+run	synchronizerd.py	/^    def run(self):$/;"	m	class:CheckProgress
+setupUi	views/synchronizerd_ui.py	/^    def setupUi(self, SyncMain):$/;"	m	class:Ui_SyncMain
+statusUpdate	synchronizerd.py	/^    def statusUpdate(self):$/;"	m	class:MainUi
+sync	synchronizerd.py	/^    def sync(self):$/;"	m	class:MainUi
+toOpen	synchronizerd.py	/^    def toOpen(self):$/;"	m	class:MainUi
+Ui_SyncMain	views/synchronizerd_ui.py	/^class Ui_SyncMain(object):$/;"	c
+__init__	synchronizerd.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:MainUi
+__init__	synchronizerd.py	/^    def __init__(self, process, status, queue):$/;"	m	class:CheckProgress
