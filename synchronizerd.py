@@ -1,11 +1,16 @@
+#-*- coding: utf-8 -*-
 import sys
 import os
 import subprocess
+import PySide
 from threading import Thread
 from PySide import QtGui
 from PySide import QtCore
+from PySide.QtGui import QMessageBox
+from PySide.QtCore import QThread, QObject
 from views.synchronizerd_ui import Ui_SyncMain
-import Queue
+__version__ = '1.0.0'
+import platform
 
 dir_from = None
 dir_to = None
@@ -26,28 +31,43 @@ if len(sys.argv) == 3:
     dir_from = entrada2
 
 
-class CheckProgress(Thread):
+def mBoxExec(message):
+    QMessageBox.information(None, 'Error!', message, QMessageBox.Ok)
 
-    def __init__(self, process, status, queue):
-        Thread.__init__(self)
-        self.process = process
-        self.status = status
-        self.queue = queue
+
+class Communicate(QObject):
+    speak = QtCore.Signal(str)
+    mBox = QtCore.Signal(str)
+
+
+class CheckProgress(QThread):
+
+    def __init__(self, dir_from, dir_to, some):
+        QThread.__init__(self, None)
+        box = Communicate()
+        box.mBox.connect(mBoxExec)
+        try:
+            self.processo = subprocess.Popen(
+                ["rsync", "-av", "--progress", "--size-only", "%s" %
+                 dir_from, "%s" % dir_to], shell=False, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
+            self.some = some
+        except Exception as e:
+            box.mBox.emit(
+                u'Error invoking rsync, please check if you have rsync installed.\n:= %s' % e.message)
+            print e
 
     def run(self):
         self.getProgress()
 
     def getProgress(self):
         while True:
-            out = self.process.stdout.readline(150)
-            if out == '' and self.process.poll() != None:
-                self.queue.task_done()
+            out = self.processo.stdout.readline(150)
+            if out == '' and self.processo.poll() is not None:
                 print "processo acabou"
                 break
-            # print out
-            self.queue.put(out)
-#           self.status.append(out)
-            # yield out
+            print out
+            self.some.speak.emit(out)
 
 
 class MainUi(QtGui.QMainWindow):
@@ -59,43 +79,51 @@ class MainUi(QtGui.QMainWindow):
         self.ui.btOpenFrom.clicked.connect(self.fromOpen)
         self.ui.btOpenTo.clicked.connect(self.toOpen)
         self.ui.btSync.clicked.connect(self.sync)
-        self.queue = Queue.Queue()
+        self.some = Communicate()
+        self.some.speak.connect(self.sayWords)
+        self.ui.actionOpen_Folder_From.activated.connect(self.fromOpen)
+        self.ui.actionOpen_Folder_To.activated.connect(self.toOpen)
+        self.ui.action_About.activated.connect(self.aboutBox)
+        self.ui.actionAbout_Qt.activated.connect(self.aboutBoxQt)
+
+    @QtCore.Slot(str)
+    def sayWords(self, words):
+        self.ui.textStatus.append(words)
+
+    def aboutBox(self):
+        about = QMessageBox.about(self, "About SynchroniZeRD",
+        u"""<b>SynchroniZeRD</b> v %s
+        <p>Copyright (C) 2013 Ronnie Andrew.
+        All rights reserved in accordance with
+        GPL v3 or later - NO WARRANTIES!</p>
+        <p>This application can be used to synchronize folders using <b>rsync</b> as main feature.</p>
+        <p><b>Official Website:</b> <a href='http://roandigital.com/applications/synchronizerd'>Roan Digital</a></p>
+        <p>%s</p>
+        """ % (__version__, platform.system()))
+
+    def aboutBoxQt(self):
+        QMessageBox.aboutQt(self, 'About Qt')
+        pass
 
     def fromOpen(self):
         chosenFromDir = self.getDirectory()
-        self.dir_from = chosenFromDir + "/*"
+        self.dir_from = chosenFromDir + "/"
+        print self.dir_from
         self.ui.textFrom.setText(self.dir_from)
         pass
 
     def toOpen(self):
         chosenToDir = self.getDirectory()
         self.dir_to = chosenToDir + "/"
+        print self.dir_to
         self.ui.textTo.setText(self.dir_to)
         pass
 
     def sync(self):
-        self.processo = subprocess.Popen(
-            ["rsync", "-av", "--progress", "--size-only", "%s" %
-             self.dir_from, "%s" % self.dir_to], shell=False, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
         self.threadProgress = CheckProgress(
-            self.processo, self.ui.textStatus, self.queue)
+            self.dir_from, self.dir_to, self.some)
         self.threadProgress.start()
-#        self.threadProgress.join()
-        self.statusUpdate()
         pass
-
-    def statusUpdate(self):
-        while True:
-            line = None
-            if self.queue.unfinished_tasks >= 0:
-                line = self.queue.get()
-                print line
-                self.queue.task_done()
-                print self.queue.unfinished_tasks
-                self.ui.textStatus.append(line)
-            else:
-                break
 
     def getDirectory(self):
         dialog = QtGui.QFileDialog()

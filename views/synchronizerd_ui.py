@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'synchronizerd.ui'
 #
-# Created: Wed Sep 18 17:51:21 2013
-#      by: pyside-uic 0.2.14 running on PySide 1.1.2
+# Created: Fri Nov  1 11:13:02 2013
+#      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -71,10 +71,12 @@ class Ui_SyncMain(object):
         self.gridLayout_2.addLayout(self.horizontalLayout_2, 4, 0, 1, 1)
         SyncMain.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(SyncMain)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 429, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 429, 19))
         self.menubar.setObjectName("menubar")
         self.menu_File = QtGui.QMenu(self.menubar)
         self.menu_File.setObjectName("menu_File")
+        self.menu_Help = QtGui.QMenu(self.menubar)
+        self.menu_Help.setObjectName("menu_Help")
         SyncMain.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(SyncMain)
         self.statusbar.setObjectName("statusbar")
@@ -83,9 +85,19 @@ class Ui_SyncMain(object):
         self.actionOpen_Folder_From.setObjectName("actionOpen_Folder_From")
         self.actionOpen_Folder_To = QtGui.QAction(SyncMain)
         self.actionOpen_Folder_To.setObjectName("actionOpen_Folder_To")
+        self.action_Exit = QtGui.QAction(SyncMain)
+        self.action_Exit.setObjectName("action_Exit")
+        self.action_About = QtGui.QAction(SyncMain)
+        self.action_About.setObjectName("action_About")
+        self.actionAbout_Qt = QtGui.QAction(SyncMain)
+        self.actionAbout_Qt.setObjectName("actionAbout_Qt")
         self.menu_File.addAction(self.actionOpen_Folder_From)
         self.menu_File.addAction(self.actionOpen_Folder_To)
+        self.menu_File.addAction(self.action_Exit)
+        self.menu_Help.addAction(self.action_About)
+        self.menu_Help.addAction(self.actionAbout_Qt)
         self.menubar.addAction(self.menu_File.menuAction())
+        self.menubar.addAction(self.menu_Help.menuAction())
 
         self.retranslateUi(SyncMain)
         QtCore.QMetaObject.connectSlotsByName(SyncMain)
@@ -100,6 +112,10 @@ class Ui_SyncMain(object):
         self.label_4.setText(QtGui.QApplication.translate("SyncMain", "Status:", None, QtGui.QApplication.UnicodeUTF8))
         self.btSync.setText(QtGui.QApplication.translate("SyncMain", "Synchronize!", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_File.setTitle(QtGui.QApplication.translate("SyncMain", "&Actions", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_Help.setTitle(QtGui.QApplication.translate("SyncMain", "&Help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_Folder_From.setText(QtGui.QApplication.translate("SyncMain", "Open Folder &From", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_Folder_To.setText(QtGui.QApplication.translate("SyncMain", "Open Folder &To", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_Exit.setText(QtGui.QApplication.translate("SyncMain", "&Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_About.setText(QtGui.QApplication.translate("SyncMain", "&About", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAbout_Qt.setText(QtGui.QApplication.translate("SyncMain", "About &Qt", None, QtGui.QApplication.UnicodeUTF8))
 
