@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+/usr/bin/python2 /opt/synchronizerd/synchronizerd.py -PyQt4

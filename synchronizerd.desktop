@@ -1,0 +1,22 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+#Name of your shortcut
+Name=SynchroniZeRD
+#A comment for your shortcut.
+Comment=Simple folder synchronizing application.
+#Execute your command here - ex: python hello.py"
+Exec=synchronizerd
+#Select an icon path - ex: /home/user/Pictures/icon.png"	
+Icon=synchronize-rd.png
+#Determine if the exec command will run on a terminal or not.
+Terminal=false
+#Type of your command
+Type=Application
+#Category of your command		
+Categories=GTK;GNOME;Utility;
+#Path=/usr/bin
+Version=1.0.0
+Encoding=UTF-8
+
+#Dont forget to rename your shortcut to "shortcut-name.desktop" when you are done editing.

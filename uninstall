@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+rm /usr/bin/synchronizerd
+rm /usr/share/applications/synchronizerd.desktop
+rm /usr/share/icons/hicolor/256x256/apps/synchronizer-rd.png
+rm -rf /opt/synchronizerd

@@ -10,8 +10,10 @@ import paypalrestsdk
 from paypalrestsdk import Payment
 
 
-def backendError():
-    print ("You should choose PySide or PyQt4 as a UI-- Example: python synchhronizerd.py -PySide Or: python synchronizerd.py -PyQt4")
+def backend_error():
+    print(
+        "You should choose PySide or PyQt4 as a UI-- Example: python synchhronizerd.py -PySide Or: python synchronizerd.py -PyQt4")
+
 
 if len(sys.argv) == 2:
     if sys.argv[1] == '-PySide':
@@ -33,7 +35,7 @@ if len(sys.argv) == 2:
         import PyQt4
         from PyQt4 import QtGui
         from PyQt4 import QtCore
-        from PyQt4.QtGui import QMessageBox
+        from PyQt4.QtGui import QMessageBox, QMainWindow
         from PyQt4.QtCore import QThread, QObject
         from PyQt4.QtCore import pyqtSignal as Signal
         from PyQt4.QtCore import pyqtSlot as Slot
@@ -43,10 +45,10 @@ if len(sys.argv) == 2:
         from views.paypal_ui import Ui_PaypalDialog
         #------------------------------------------
     else:
-        backendError()
+        backend_error()
         sys.exit()
 else:
-    backendError()
+    backend_error()
     sys.exit()
 
 __version__ = '1.0.0'
@@ -57,13 +59,13 @@ dir_to = None
 
 
 @Slot(str)
-def mBoxExec(message):
+def m_box_exec(message):
     '''Mostra message box error'''
     QMessageBox.critical(None, 'Error!', message, QMessageBox.Ok)
 
 
 @Slot(str)
-def mBoxExecSuccess(message):
+def m_box_exec_success(message):
     '''Mostra message box sucess'''
     QMessageBox.information(None, 'Sucess!', message, QMessageBox.Ok)
 
@@ -75,7 +77,6 @@ class Communicate(QObject):
 
 
 class EmailSender(Thread):
-
     def __init__(self, nome, appName, email, mensagem, com):
         Thread.__init__(self)
         self.mensagem = mensagem
@@ -85,14 +86,14 @@ class EmailSender(Thread):
         self.com = com
 
     def run(self):
-        self.sendMail(self.nome, self.appName, self.email, self.mensagem)
+        self.send_mail(self.nome, self.appName, self.email, self.mensagem)
 
-    def sendMail(self, nome, appName, email, mensagem):
+    def send_mail(self, nome, app_name, email, mensagem):
         try:
             sender = "contato@roandigital.com"
             receivers = ['suporte@roandigital.com']
             message = MIMEText(
-                mensagem + os.linesep + "Application: %s" % appName)
+                mensagem + os.linesep + "Application: %s" % app_name)
             message[
                 'Subject'] = "Feedback SynchroniZeRD - %s" % socket.gethostname()
             message['From'] = " %s <%s>" % (nome, email)
@@ -107,164 +108,183 @@ class EmailSender(Thread):
         except Exception as e:
             self.com.mBoxEr.emit(
                 'The email was not sent, sorry.\n\n You may want to check your internet connection.')
-            print (e)
+            print(e)
 
 
 class CheckProgress(QThread):
-
     def __init__(self, dir_from, dir_to, some):
         QThread.__init__(self, None)
         box = Communicate()
-        box.mBox.connect(mBoxExec)
+        box.mBox.connect(m_box_exec)
         try:
             self.processo = subprocess.Popen(
                 ["rsync", "-av", "--progress", "--size-only", "%s" %
-                 dir_from, "%s" % dir_to], shell=False, stdout=subprocess.PIPE,
+                                                              dir_from, "%s" % dir_to], shell=False,
+                stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE)
             self.some = some
         except Exception as e:
             box.mBox.emit(
                 u'Error invoking rsync, please check if you have rsync installed.\n:= %s' % e.message)
-            print (e)
+            print(e)
 
     def run(self):
-        self.getProgress()
+        self.get_progress()
 
-    def getProgress(self):
+    def get_progress(self):
         while True:
             out = self.processo.stdout.readline(150)
             if out == '' and self.processo.poll() is not None:
-                print ("processo acabou")
+                print("processo acabou")
                 break
-            print (out)
+            print(out)
             self.some.speak.emit(out)
 
 
 class Feedback(QtGui.QDialog):
-
     def __init__(self):
         super(Feedback, self).__init__()
         self.ui = Ui_FeedbackDialog()
         self.ui.setupUi(self)
-        self.ui.sendButton.clicked.connect(self.sendMail)
+        self.ui.sendButton.clicked.connect(self.send_mail)
         self.com = Communicate()
-        self.com.mBox.connect(mBoxExecSuccess)
-        self.com.mBoxEr.connect(mBoxExec)
+        self.com.mBox.connect(m_box_exec_success)
+        self.com.mBoxEr.connect(m_box_exec)
 
-    def sendMail(self):
+    def send_mail(self):
         mail = EmailSender(self.ui.nameEdit.text(), 'SynchroniZeRD',
                            self.ui.emailEdit.text(), self.ui.messageEdit.toPlainText(), self.com)
         mail.start()
         mail.join()
         self.close()
 
-class PayPalUI(QtGui.QDialog):
 
+class PayPalUI(QtGui.QDialog):
     def __init__(self):
         super(PayPalUI, self).__init__()
         self.ui = Ui_PaypalDialog()
         self.ui.setupUi(self)
-        self.ui.happySlider.valueChanged.connect(self.chValue)
-        self.ui.happyButton.clicked.connect(self.createPayment)
+        self.ui.happySlider.valueChanged.connect(self.ch_value)
+        self.ui.happyButton.clicked.connect(self.create_payment)
         img = QtGui.QPixmap('paypal_logo.jpg')
         self.ui.label_5.setPixmap(img)
         self.ui.label_5.setScaledContents(True)
-        self.ui.label_5.setFixedSize(300,50)
-        self.ui.happyEdit.textChanged.connect(self.chText)
+        self.ui.label_5.setFixedSize(300, 50)
+        self.ui.happyEdit.textChanged.connect(self.ch_text)
         self.ui.happyEdit.setText('3')
-        
-    def chValue(self):
+        self.ui.happyWebView.urlChanged.connect(self.ch_web_view)
+
+    def ch_value(self):
         self.ui.happyEdit.setText(str(self.ui.happySlider.value()))
 
-    def chText(self):
+    def ch_text(self):
         self.ui.happySlider.setValue(float(self.ui.happyEdit.text()))
 
-    def createPayment(self):
+    def ch_web_view(self):
+        url = self.ui.happyWebView.url()
+        url_string = url.toString()
+
+        if 'PayerID=' in url_string:
+            from httplib2 import Http
+
+            h = Http()
+            resp, content = h.request(url_string)
+            for s in url_string.split('&'):
+                if s.startswith('PayerID='):
+                    id = s.strip('PayerID=')
+                    if self.payment.execute({"payer_id": id}):
+                        m_box_exec_success('Congratulations, you have made someone happy!')
+                    else:
+                        m_box_exec('Sorry, your transaction could not be completed.')
+
+
+    def create_payment(self):
         price = self.ui.happyEdit.text()
         paypalrestsdk.configure({
             "mode": "sandbox", # sandbox or live
             "client_id": "ASS1fRDDkhHgMRXFYLJ9J02663eBb1ktC65nEQ6iVKbD4PyJPilbycGv6pxF",
-            "client_secret": "EDo-XBCkEY72na40ngY_D6h8r6T2IhfBYtZoHEFV9Rf2sSYtsYDqmhexF3tO" })
-        payment = Payment({
-  "intent":  "sale",
+            "client_secret": "EDo-XBCkEY72na40ngY_D6h8r6T2IhfBYtZoHEFV9Rf2sSYtsYDqmhexF3tO"})
+        self.payment = Payment({
+            "intent": "sale",
 
-  # ###Payer
-  # A resource representing a Payer that funds a payment
-  # Payment Method as 'paypal'
-  "payer":  {
-    "payment_method":  "paypal" },
+            # Payer
+            # A resource representing a Payer that funds a payment
+            # Payment Method as 'paypal'
+            "payer": {
+                "payment_method": "paypal"},
 
-  # ###Redirect URLs
-  "redirect_urls": {
-    "return_url": "http://roandigital.com/",
-    "cancel_url": "http://roandigital.com/applications/" },
+            # Redirect URLs
+            "redirect_urls": {
+                "return_url": "http://roandigital.com/",
+                "cancel_url": "http://roandigital.com/applications/"},
 
-  # ###Transaction
-  # A transaction defines the contract of a
-  # payment - what is the payment for and who
-  # is fulfilling it.
-  "transactions":  [ {
+            # Transaction
+            # A transaction defines the contract of a
+            # payment - what is the payment for and who
+            # is fulfilling it.
+            "transactions": [{
 
-    # ### ItemList
-    "item_list": {
-      "items": [{
-        "name": "synchronizerd",
-        "sku": "synchronizerd",
-        "price": price,
-        "currency": "USD",
-        "quantity": 1 }]},
+                                 # ItemList
+                                 "item_list": {
+                                     "items": [{
+                                                   "name": "synchronizerd",
+                                                   "sku": "synchronizerd",
+                                                   "price": price,
+                                                   "currency": "USD",
+                                                   "quantity": 1}]},
 
-    # ###Amount
-    # Let's you specify a payment amount.
-    "amount":  {
-      "total":  price,
-      "currency":  "USD" },
-    "description":  "This is the payment transaction for SynchroniZeRD." } ] } )
-        if payment.create():
-            print("payment created")
-            for link in payment.links:
-                if link.method=="REDIRECT":
+                                 # Amount
+                                 # Let's you specify a payment amount.
+                                 "amount": {
+                                     "total": price,
+                                     "currency": "USD"},
+                                 "description": "This is the payment transaction for SynchroniZeRD."}]})
+        if self.payment.create():
+            m_box_exec_success('Your payment was created, now go to your paypal account to authorize it.')
+            for link in self.payment.links:
+                if link.method == "REDIRECT":
                     red = link.href
                     self.ui.happyWebView.load(red)
         else:
-            print('deu merda')
+            print('error')
 
 
 class MainUi(QtGui.QMainWindow):
-
     def __init__(self, *args, **kwargs):
         super(MainUi, self).__init__()
         self.ui = Ui_SyncMain()
         self.ui.setupUi(self)
-        self.ui.btOpenFrom.clicked.connect(self.fromOpen)
-        self.ui.btOpenTo.clicked.connect(self.toOpen)
+        self.ui.btOpenFrom.clicked.connect(self.from_open)
+        self.ui.btOpenTo.clicked.connect(self.to_open)
         self.ui.btSync.clicked.connect(self.sync)
         self.some = Communicate()
-        self.some.speak.connect(self.sayWords)
-        self.ui.actionOpen_Folder_From.activated.connect(self.fromOpen)
-        self.ui.actionOpen_Folder_To.activated.connect(self.toOpen)
-        self.ui.action_About.activated.connect(self.aboutBox)
-        self.ui.action_License.activated.connect(self.aboutLicense)
-        self.ui.actionAbout_Qt.activated.connect(self.aboutBoxQt)
-        self.ui.action_Exit.activated.connect(self.exitMenu)
+        self.some.speak.connect(self.say_words)
+        self.ui.actionOpen_Folder_From.activated.connect(self.from_open)
+        self.ui.actionOpen_Folder_To.activated.connect(self.to_open)
+        self.ui.action_About.activated.connect(self.about_box)
+        self.ui.action_License.activated.connect(self.about_license)
+        self.ui.actionAbout_Qt.activated.connect(self.about_box_qt)
+        self.ui.action_Exit.activated.connect(self.exit_menu)
         self.ui.actionSend_Feedback.activated.connect(self.feedback)
         self.ui.actionMake_someone_happy.activated.connect(self.paypalui)
 
     @Slot(str)
-    def sayWords(self, words):
+    def say_words(self, words):
         self.ui.textStatus.append(words)
 
-    def paypalui(self):
+    @staticmethod
+    def paypalui():
         pay = PayPalUI()
         pay.exec_()
 
-    def feedback(self):
+    @staticmethod
+    def feedback():
         feed = Feedback()
         feed.exec_()
 
-    def aboutBox(self):
+    def about_box(self):
         about = QMessageBox.about(self, "About SynchroniZeRD",
-        u"""<b>SynchroniZeRD</b> v %s
+                                  u"""<b>SynchroniZeRD</b> v %s
         <p><b>Copyright (C) 2013</b> Ronnie Andrew.</p>
         <p>
         All rights reserved in accordance with
@@ -274,11 +294,11 @@ class MainUi(QtGui.QMainWindow):
         <p><b>Platform: </b>%s</p>
         """ % (__version__, platform.system()))
 
-    def aboutBoxQt(self):
+    def about_box_qt(self):
         QMessageBox.aboutQt(self, 'About Qt')
         pass
 
-    def aboutLicense(self):
+    def about_license(self):
         try:
             f = open('GNU_HTML')
             license = QtGui.QDialog()
@@ -293,34 +313,35 @@ class MainUi(QtGui.QMainWindow):
             QMessageBox.critical(
                 self, 'Error', 'Unable to open GNU_HTML License file.')
 
-    def fromOpen(self):
-        chosenFromDir = self.getDirectory()
-        self.dir_from = chosenFromDir + "/"
-        print (self.dir_from)
+    def from_open(self):
+        chosen_from_dir = self.get_directory()
+        self.dir_from = chosen_from_dir + "/"
+        print(self.dir_from)
         self.ui.textFrom.setText(self.dir_from)
         pass
 
-    def toOpen(self):
-        chosenToDir = self.getDirectory()
-        self.dir_to = chosenToDir + "/"
-        print (self.dir_to)
+    def to_open(self):
+        chosen_to_dir = self.get_directory()
+        self.dir_to = chosen_to_dir + "/"
+        print(self.dir_to)
         self.ui.textTo.setText(self.dir_to)
         pass
 
     def sync(self):
-        self.threadProgress = CheckProgress(
+        self.thread_progress = CheckProgress(
             self.dir_from, self.dir_to, self.some)
-        self.threadProgress.start()
+        self.thread_progress.start()
         pass
 
-    def getDirectory(self):
+    def get_directory(self):
         dialog = QtGui.QFileDialog()
         dialog.setFileMode(QtGui.QFileDialog.Directory)
         dialog.setOption(QtGui.QFileDialog.ShowDirsOnly)
         return dialog.getExistingDirectory()
 
-    def exitMenu(self):
+    def exit_menu(self):
         self.close()
+
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)

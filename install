@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+rsync -a * /opt/synchronizerd
+cd /opt/synchronizerd
+cp synchronizerd-bin /usr/bin/synchronizerd
+cp synchronizerd.desktop /usr/share/applications
+cp synchronizer-rd.png /usr/share/icons/hicolor/256x256/apps
