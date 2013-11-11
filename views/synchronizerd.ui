@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
-    <height>353</height>
+    <width>340</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,6 +110,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="btSync">
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Synchronize!</string>
         </property>
@@ -124,7 +130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>429</width>
+     <width>340</width>
      <height>19</height>
     </rect>
    </property>
@@ -142,6 +148,9 @@
     </property>
     <addaction name="action_About"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="action_License"/>
+    <addaction name="actionSend_Feedback"/>
+    <addaction name="actionMake_someone_happy"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Help"/>
@@ -170,6 +179,21 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="action_License">
+   <property name="text">
+    <string>&amp;License</string>
+   </property>
+  </action>
+  <action name="actionSend_Feedback">
+   <property name="text">
+    <string>Send &amp;Feedback</string>
+   </property>
+  </action>
+  <action name="actionMake_someone_happy">
+   <property name="text">
+    <string>Make Someone &amp;Happy</string>
    </property>
   </action>
  </widget>
