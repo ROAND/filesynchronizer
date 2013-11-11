@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bad1c4cf-1145-4439-924a-07555e6555f1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/feedback.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/paypal.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/paypal_logo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/COPYING" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GNU_HTML" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/compileuis.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/feedback_ui.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/feedback_ui_pyside.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/install" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/paypal_ui.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/paypal_ui_pyside.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/setup.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/setup_freeze.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/synchronizerd-bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/synchronizerd.desktop" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/synchronizerd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/synchronizerd_ui_pyside.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/uninstall" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/synchronizerd.py" afterPath="$PROJECT_DIR$/synchronizerd.py" />
+    <list default="true" id="bad1c4cf-1145-4439-924a-07555e6555f1" name="Default" comment="Paypal Integration 100%">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rd-filesynchronizer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,7 +28,7 @@
       <file leaf-file-name="synchronizerd.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/synchronizerd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="27" selection-start="3718" selection-end="3718" vertical-scroll-proportion="0.45251396" vertical-offset="1746" max-vertical-offset="6354">
+            <state line="118" column="11" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.65363127" vertical-offset="1746" max-vertical-offset="6354">
               <folding />
             </state>
           </provider>
@@ -323,7 +302,11 @@
       <created>1384190011295</created>
       <updated>1384190011295</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Paypal Integration 100%">
+      <created>1384199004232</created>
+      <updated>1384199004232</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -331,7 +314,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32996634" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -340,7 +323,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -358,7 +341,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Paypal Integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Paypal Integration" />
+    <MESSAGE value="Paypal Integration 100%" />
+    <option name="LAST_COMMIT_MESSAGE" value="Paypal Integration 100%" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -366,7 +350,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/synchronizerd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="27" selection-start="3718" selection-end="3718" vertical-scroll-proportion="0.45251396" vertical-offset="1746" max-vertical-offset="6354">
+        <state line="118" column="11" selection-start="3852" selection-end="3852" vertical-scroll-proportion="0.65363127" vertical-offset="1746" max-vertical-offset="6354">
           <folding />
         </state>
       </provider>
