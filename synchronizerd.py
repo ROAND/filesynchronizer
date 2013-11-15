@@ -14,6 +14,15 @@ def backend_error():
     print(
         "You should choose PySide or PyQt4 as a UI-- Example: python synchhronizerd.py -PySide Or: python synchronizerd.py -PyQt4")
 
+def get_file(desired_file):
+    usrpath = os.path.join('/usr/share/synchronizerd/', desired_file)
+    try:
+        if os.path.exists(desired_file):
+            return desired_file
+        elif os.path.exists(usrpath):
+            return usrpath
+    except Exception as ex:
+        print(ex)
 
 if len(sys.argv) == 2:
     if sys.argv[1] == '-PySide':
@@ -60,13 +69,13 @@ dir_to = None
 
 @Slot(str)
 def m_box_exec(message):
-    '''Mostra message box error'''
+    """Mostra message box error"""
     QMessageBox.critical(None, 'Error!', message, QMessageBox.Ok)
 
 
 @Slot(str)
 def m_box_exec_success(message):
-    '''Mostra message box sucess'''
+    """Mostra message box sucess"""
     QMessageBox.information(None, 'Sucess!', message, QMessageBox.Ok)
 
 
@@ -77,16 +86,16 @@ class Communicate(QObject):
 
 
 class EmailSender(Thread):
-    def __init__(self, nome, appName, email, mensagem, com):
+    def __init__(self, nome, app_name, email, mensagem, com):
         Thread.__init__(self)
         self.mensagem = mensagem
-        self.appName = appName
+        self.app_name = app_name
         self.email = email
         self.nome = nome
         self.com = com
 
     def run(self):
-        self.send_mail(self.nome, self.appName, self.email, self.mensagem)
+        self.send_mail(self.nome, self.app_name, self.email, self.mensagem)
 
     def send_mail(self, nome, app_name, email, mensagem):
         try:
@@ -166,13 +175,17 @@ class PayPalUI(QtGui.QDialog):
         self.ui.setupUi(self)
         self.ui.happySlider.valueChanged.connect(self.ch_value)
         self.ui.happyButton.clicked.connect(self.create_payment)
-        img = QtGui.QPixmap('paypal_logo.jpg')
+        img = QtGui.QPixmap(get_file('paypal_logo.jpg'))
         self.ui.label_5.setPixmap(img)
         self.ui.label_5.setScaledContents(True)
         self.ui.label_5.setFixedSize(300, 50)
         self.ui.happyEdit.textChanged.connect(self.ch_text)
         self.ui.happyEdit.setText('3')
         self.ui.happyWebView.urlChanged.connect(self.ch_web_view)
+        self.ui.happyWebView.loadProgress.connect(self.progress_webview)
+
+    def progress_webview(self, progress):
+        self.ui.progressBar.setValue(progress)
 
     def ch_value(self):
         self.ui.happyEdit.setText(str(self.ui.happySlider.value()))
@@ -185,18 +198,15 @@ class PayPalUI(QtGui.QDialog):
         url_string = url.toString()
 
         if 'PayerID=' in url_string:
-            from httplib2 import Http
-
-            h = Http()
-            resp, content = h.request(url_string)
             for s in url_string.split('&'):
                 if s.startswith('PayerID='):
                     id = s.strip('PayerID=')
                     if self.payment.execute({"payer_id": id}):
-                        m_box_exec_success('Congratulations, you have made someone happy!')
+                        m_box_exec_success(
+                            'Congratulations, you have made someone happy!')
                     else:
-                        m_box_exec('Sorry, your transaction could not be completed.')
-
+                        m_box_exec(
+                            'Sorry, your transaction could not be completed.')
 
     def create_payment(self):
         price = self.ui.happyEdit.text()
@@ -215,8 +225,8 @@ class PayPalUI(QtGui.QDialog):
 
             # Redirect URLs
             "redirect_urls": {
-                "return_url": "http://roandigital.com/",
-                "cancel_url": "http://roandigital.com/applications/"},
+                "return_url": "http://roandigital.com/applications/synchronizerd/thanks",
+                "cancel_url": "http://roandigital.com/applications/synchronizerd/sorry"},
 
             # Transaction
             # A transaction defines the contract of a
@@ -227,8 +237,8 @@ class PayPalUI(QtGui.QDialog):
                                  # ItemList
                                  "item_list": {
                                      "items": [{
-                                                   "name": "synchronizerd",
-                                                   "sku": "synchronizerd",
+                                                   "name": "SynchroniZeRD",
+                                                   "sku": "1",
                                                    "price": price,
                                                    "currency": "USD",
                                                    "quantity": 1}]},
@@ -240,11 +250,14 @@ class PayPalUI(QtGui.QDialog):
                                      "currency": "USD"},
                                  "description": "This is the payment transaction for SynchroniZeRD."}]})
         if self.payment.create():
-            m_box_exec_success('Your payment was created, now go to your paypal account to authorize it.')
+            m_box_exec_success(
+                'Your payment was created, redirecting to paypal for authorization.')
             for link in self.payment.links:
                 if link.method == "REDIRECT":
                     red = link.href
                     self.ui.happyWebView.load(red)
+                    self.setMinimumSize(1024, 600)
+
         else:
             print('error')
 
@@ -267,6 +280,8 @@ class MainUi(QtGui.QMainWindow):
         self.ui.action_Exit.activated.connect(self.exit_menu)
         self.ui.actionSend_Feedback.activated.connect(self.feedback)
         self.ui.actionMake_someone_happy.activated.connect(self.paypalui)
+        self.ui.btOpenTo.setIcon(QtGui.QIcon(get_file('openfolder.png')))
+        self.ui.btOpenFrom.setIcon(QtGui.QIcon(get_file('openfolder.png')))
 
     @Slot(str)
     def say_words(self, words):
@@ -296,11 +311,10 @@ class MainUi(QtGui.QMainWindow):
 
     def about_box_qt(self):
         QMessageBox.aboutQt(self, 'About Qt')
-        pass
 
     def about_license(self):
         try:
-            f = open('GNU_HTML')
+            f = open(get_file('GNU_HTML'))
             license = QtGui.QDialog()
             license.resize(650, 480)
             license.setWindowTitle('SynchroniZeRD License')
@@ -347,7 +361,8 @@ if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
     main = MainUi()
     try:
-        app.setWindowIcon(QtGui.QIcon('synchronizer-rd.png'))
+        app.setWindowIcon(QtGui.QIcon(get_file('synchronizer-rd.png')))
+        main.setWindowIcon(QtGui.QIcon(get_file('synchronizer-rd.png')))
     except:
         QMessageBox.critical(
             main, 'Error', 'Unable to open icon synchronizer-rd.png')

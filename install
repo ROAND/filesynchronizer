@@ -4,3 +4,6 @@ cd /opt/synchronizerd
 cp synchronizerd-bin /usr/bin/synchronizerd
 cp synchronizerd.desktop /usr/share/applications
 cp synchronizer-rd.png /usr/share/icons/hicolor/256x256/apps
+rsync -a *.png /usr/share/synchronizerd
+rsync -a *.jpg /usr/share/synchronizerd
+rsync -a GNU_HTML /usr/share/synchronizerd

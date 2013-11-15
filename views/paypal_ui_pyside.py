@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'paypal.ui'
 #
-# Created: Mon Nov 11 14:02:14 2013
+# Created: Mon Nov 11 18:17:56 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -25,13 +25,12 @@ class Ui_PaypalDialog(object):
         self.label_4 = QtGui.QLabel(PaypalDialog)
         self.label_4.setWordWrap(True)
         self.label_4.setObjectName("label_4")
-        self.gridLayout_3.addWidget(self.label_4, 6, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_4, 7, 0, 1, 1)
         self.label_3 = QtGui.QLabel(PaypalDialog)
         self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
         self.gridLayout_3.addWidget(self.label_3, 2, 0, 1, 1)
         self.label_5 = QtGui.QLabel(PaypalDialog)
-        self.label_5.setText("")
         self.label_5.setScaledContents(True)
         self.label_5.setObjectName("label_5")
         self.gridLayout_3.addWidget(self.label_5, 0, 0, 1, 1)
@@ -41,10 +40,10 @@ class Ui_PaypalDialog(object):
         self.gridLayout_3.addWidget(self.label, 1, 0, 1, 1)
         self.happyButton = QtGui.QPushButton(PaypalDialog)
         self.happyButton.setObjectName("happyButton")
-        self.gridLayout_3.addWidget(self.happyButton, 8, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.happyButton, 9, 0, 1, 1)
         self.label_2 = QtGui.QLabel(PaypalDialog)
         self.label_2.setObjectName("label_2")
-        self.gridLayout_3.addWidget(self.label_2, 7, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_2, 8, 0, 1, 1)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         self.happySlider = QtGui.QSlider(PaypalDialog)
@@ -60,6 +59,10 @@ class Ui_PaypalDialog(object):
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 0, 1, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout, 4, 0, 1, 1)
+        self.progressBar = QtGui.QProgressBar(PaypalDialog)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setObjectName("progressBar")
+        self.gridLayout_3.addWidget(self.progressBar, 6, 0, 1, 1)
 
         self.retranslateUi(PaypalDialog)
         QtCore.QMetaObject.connectSlotsByName(PaypalDialog)
@@ -68,6 +71,7 @@ class Ui_PaypalDialog(object):
         PaypalDialog.setWindowTitle(QtGui.QApplication.translate("PaypalDialog", "PayPal", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("PaypalDialog", "10% of the amount you choose will be donated to the rsync project and the rest goes to the developers.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("PaypalDialog", "Here you can show us how much you liked it.", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_5.setText(QtGui.QApplication.translate("PaypalDialog", "Logo", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("PaypalDialog", "Did you like SynchroniZeRD? Oh what a stupid question, of course you did (:", None, QtGui.QApplication.UnicodeUTF8))
         self.happyButton.setText(QtGui.QApplication.translate("PaypalDialog", "Make someone happy!", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("PaypalDialog", " Cheers!", None, QtGui.QApplication.UnicodeUTF8))

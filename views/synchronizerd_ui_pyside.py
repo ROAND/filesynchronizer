@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'synchronizerd.ui'
 #
-# Created: Mon Nov 11 14:02:14 2013
+# Created: Mon Nov 11 18:17:56 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!

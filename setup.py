@@ -13,6 +13,18 @@ setup(name='SynchroniZerD',
       # py_modules=['synchronizerd'],
       scripts=['synchronizerd'],
       #packages=['synchronizerd'],
-      data_files=[('/opt/synchronizerd', ['synchronizerd.py', 'synchronizer-rd.png', 'paypal_logo.jpg', 'synchronizerd', 'COPYING', 'GNU_HTML']), (
-          'share/applications', ['synchronizerd.desktop']), ('/opt/synchronizerd/views',['views/synchronizerd_ui.py','views/__init__.py', 'views/synchronizerd.ui','views/synchronizerd_ui_pyside.py','views/feedback_ui.py', 'views/feedback_ui_pyside.py']), ('share/icons/hicolor/256x256/apps',['synchronizer-rd.png'])]
-      )
+      data_files=[('/opt/synchronizerd',
+                   ['synchronizerd.py', 'synchronizer-rd.png', 'paypal_logo.jpg', 'synchronizerd', 'COPYING',
+                    'GNU_HTML']), (
+                      'share/applications', ['synchronizerd.desktop']), ('/opt/synchronizerd/views',
+                                                                         ['views/synchronizerd_ui.py',
+                                                                          'views/__init__.py', 'views/synchronizerd.ui',
+                                                                          'views/synchronizerd_ui_pyside.py',
+                                                                          'views/feedback_ui.py',
+                                                                          'views/feedback_ui_pyside.py',
+                                                                          'views/paypal_ui.py',
+                                                                          'views/paypal_ui_pyside.py']),
+                  ('share/icons/hicolor/256x256/apps', ['synchronizer-rd.png']),
+                  ('share/synchronizerd', ['synchronizer-rd.png', 'paypal_logo.jpg', 'COPYING', 'GNU_HTML'])],
+      requires=['PyQt4', 'PySide', 'paypalrestsdk']
+)

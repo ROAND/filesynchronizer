@@ -27,7 +27,7 @@
      </item>
     </layout>
    </item>
-   <item row="6" column="0">
+   <item row="7" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>10% of the amount you choose will be donated to the rsync project and the rest goes to the developers.</string>
@@ -50,7 +50,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
-      <string/>
+      <string>Logo</string>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -67,14 +67,14 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0">
+   <item row="9" column="0">
     <widget class="QPushButton" name="happyButton">
      <property name="text">
       <string>Make someone happy!</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="8" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string> Cheers!</string>
@@ -107,6 +107,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

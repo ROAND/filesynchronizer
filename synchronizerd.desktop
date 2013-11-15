@@ -8,7 +8,7 @@ Comment=Simple folder synchronizing application.
 #Execute your command here - ex: python hello.py"
 Exec=synchronizerd
 #Select an icon path - ex: /home/user/Pictures/icon.png"	
-Icon=synchronize-rd.png
+Icon=synchronizer-rd.png
 #Determine if the exec command will run on a terminal or not.
 Terminal=false
 #Type of your command
